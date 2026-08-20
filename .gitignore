@@ -1,0 +1,6 @@
+# macOS / editor junk
+.DS_Store
+.Rhistory
+
+# Old deploy log (legacy)
+.git_push.log

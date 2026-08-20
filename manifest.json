@@ -1,0 +1,146 @@
+{
+  "generated_at": "2026-08-19T20:47:51Z",
+  "today_start": "2026-08-19T00:00:00Z",
+  "horizon": "2026-08-24T00:00:00Z",
+  "default_dataset": "gfs_wrf",
+  "datasets": [
+    {
+      "id": "gfs_wrf",
+      "label": "GFS + WRF (3 km)",
+      "model": "GFS",
+      "stage": "wrf",
+      "path_prefix": "data/gfs_wrf",
+      "grid": {
+        "nx": 384,
+        "ny": 384,
+        "dx_m": 3000
+      },
+      "grid_file": "grid.json",
+      "files": [
+        "forecast_GFS_AA_20260817-18_d02_2026-08-17T18.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-18T00.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-18T06.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-18T12.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-18T18.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-19T00.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-19T06.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-19T12.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-19T18.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-20T00.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-20T06.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-20T12.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-20T18.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-21T00.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-21T06.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-21T12.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-21T18.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-22T00.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-22T06.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-22T12.json",
+        "forecast_GFS_AA_20260817-18_d02_2026-08-22T18.json"
+      ]
+    },
+    {
+      "id": "arpege_wrf",
+      "label": "ARPEGE + WRF (3 km)",
+      "model": "ARPEGE",
+      "stage": "wrf",
+      "path_prefix": "data/arpege_wrf",
+      "grid": {
+        "nx": 384,
+        "ny": 384,
+        "dx_m": 3000
+      },
+      "grid_file": "grid.json",
+      "files": [
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-17T18.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-18T00.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-18T06.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-18T12.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-18T18.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-19T00.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-19T06.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-19T12.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-19T18.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-20T00.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-20T06.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-20T12.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-20T18.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-21T00.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-21T06.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-21T12.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-21T18.json",
+        "forecast_ARPEGE_AA_20260817-18_d02_2026-08-22T00.json"
+      ]
+    },
+    {
+      "id": "gfs_original",
+      "label": "GFS (~25 km)",
+      "model": "GFS",
+      "stage": "original",
+      "path_prefix": "data/gfs_original",
+      "grid": {
+        "nx": 301,
+        "ny": 201,
+        "dx_m": 25000
+      },
+      "grid_file": "grid.json",
+      "files": [
+        "forecast_GFS_AA_20260817-18_orig_2026-08-17T18.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-18T00.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-18T06.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-18T12.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-18T18.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-19T00.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-19T06.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-19T12.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-19T18.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-20T00.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-20T06.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-20T12.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-20T18.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-21T00.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-21T06.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-21T12.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-21T18.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-22T00.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-22T06.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-22T12.json",
+        "forecast_GFS_AA_20260817-18_orig_2026-08-22T18.json"
+      ]
+    },
+    {
+      "id": "arpege_original",
+      "label": "ARPEGE (~25 km)",
+      "model": "ARPEGE",
+      "stage": "original",
+      "path_prefix": "data/arpege_original",
+      "grid": {
+        "nx": 301,
+        "ny": 201,
+        "dx_m": 25000
+      },
+      "grid_file": "grid.json",
+      "files": [
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-17T18.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-18T00.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-18T06.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-18T12.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-18T18.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-19T00.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-19T06.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-19T12.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-19T18.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-20T00.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-20T06.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-20T12.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-20T18.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-21T00.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-21T06.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-21T12.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-21T18.json",
+        "forecast_ARPEGE_AA_20260817-18_orig_2026-08-22T00.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WRF Forecast Viewer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link rel="stylesheet" href="css/style.css?v=2"/>
+</head>
+<body>
+
+<div id="prog">
+  <div class="spinner"></div>
+  <div class="prog-label" id="prog-label">LOADING...</div>
+</div>
+
+<!-- Error panel, shown (instead of an infinite LOADING overlay) when the
+     manifest or a chunk fails to load. Hidden by default. -->
+<div id="error">
+  <div class="err-title">LOAD FAILED</div>
+  <div class="err-msg" id="error-msg"></div>
+  <button class="err-retry" onclick="location.reload()">RETRY</button>
+</div>
+
+<div id="map"></div>
+
+<!-- Small "loading more" pill shown while background chunks stream in after the
+     map is already visible (keeps the map view clean). -->
+<div id="moreprog">LOADING MORE…</div>
+
+<div id="topbar">
+  <span class="title">WRF FORECAST</span>
+  <span class="sep">|</span>
+  <span class="meta">RUN: <span id="m-run">—</span></span>
+  <span class="sep">|</span>
+  <span class="meta">DOMAIN: <span id="m-dom">—</span></span>
+  <span class="sep">|</span>
+  <span class="meta">RESOLUTION: <span id="m-dx">—</span></span>
+  <span class="sep">|</span>
+  <span class="meta">STEPS: <span id="m-n">—</span></span>
+  <span class="sep">|</span>
+  <select id="dataset-switcher" class="dataset-select" disabled></select>
+</div>
+
+<div id="layers">
+  <button class="lbtn active" id="btn-t" onclick="setVar('temp_c')">
+    <span class="dot"></span> TEMPERATURE [°C]
+  </button>
+  <button class="lbtn" id="btn-p" onclick="setVar('precip_mm')">
+    <span class="dot"></span> PRECIPITATION [mm·h⁻¹]
+  </button>
+</div>
+
+<div id="controls">
+  <div class="ctrl-row">
+    <div>
+      <div class="time-big" id="t-display">—</div>
+      <div class="time-sub" id="t-sub">step 0 / 0 · +0h from init</div>
+    </div>
+    <div class="btn-group">
+      <button class="cbtn" onclick="go(-6)" title="-6h">⏮</button>
+      <button class="cbtn" onclick="go(-1)" title="-1h">◀</button>
+      <button class="cbtn play" id="playbtn" onclick="togglePlay()">▶</button>
+      <button class="cbtn" onclick="go(1)" title="+1h">▶</button>
+      <button class="cbtn" onclick="go(6)" title="+6h">⏭</button>
+      <span class="spd" id="spd">1×</span>
+      <button class="cbtn" onclick="cycleSpeed()" title="Speed">▶▶</button>
+    </div>
+  </div>
+  <input type="range" id="slider" min="0" value="0" step="1" oninput="setStep(+this.value)"/>
+  <div class="ticks" id="ticks"></div>
+</div>
+
+<div id="logo-container">
+  <img src="logo/logoKV.png" alt="Katedra vodního hospodářství" class="kv-logo">
+  <img src="logo/CZU_logo_cerna.png" alt="CZU Logo" class="czu-logo">
+</div>
+
+<div id="legend">
+  <div class="leg-title" id="leg-title">TEMPERATURE [°C]</div>
+  <div class="leg-bar"   id="leg-bar"></div>
+  <div class="leg-labs"  id="leg-labs"></div>
+  <div class="leg-iso" id="leg-iso">
+    <div class="leg-iso-line"></div>
+    <span>GEO 700hPa [m]</span>
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<script src="js/colors.js"></script>
+<script src="js/data.js"></script>
+<script src="js/datasets.js"></script>
+<script src="js/layers.js"></script>
+<script src="js/boundaries.js?v=2"></script>
+<script src="js/map.js"></script>
+<script src="js/controls.js"></script>
+<script src="js/tooltip.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════════════════════════
+let allTimesteps = [];
+let gridData     = null;
+let metadata     = null;
+let map          = null;
+let imgOv        = null;
+let isoSvg       = null;
+let offCanvas    = null;
+let step         = 0;
+let varName      = 'temp_c';
+let showIso      = false;
+let playing      = false;
+let playTmr      = null;
+let spdIdx       = 0;
+const SPEEDS     = [1, 2, 5, 10];
+
+// ══════════════════════════════════════════════════════════════════════════
+//  COLORMAPS
+// ══════════════════════════════════════════════════════════════════════════
+const TEMP_STOPS = [
+  {v:-30, r:10,  g:0,   b:130, a:180},
+  {v:-20, r:0,   g:0,   b:220, a:190},
+  {v:-10, r:0,   g:150, b:255, a:190},
+  {v:0,   r:0,   g:255, b:200, a:180},
+  {v:5,   r:0,   g:220, b:0,   a:180},
+  {v:10,  r:140, g:255, b:0,   a:180},
+  {v:15,  r:255, g:255, b:0,   a:180},
+  {v:20,  r:255, g:180, b:0,   a:190},
+  {v:25,  r:255, g:100, b:0,   a:190},
+  {v:30,  r:255, g:0,   b:0,   a:200},
+  {v:38,  r:140, g:0,   b:0,   a:210},
+];
+const PREC_STOPS = [
+  {v:0,   r:0,   g:0,   b:0,   a:0},
+  {v:0.5, r:180, g:220, b:255, a:100},
+  {v:2,   r:80,  g:160, b:255, a:150},
+  {v:5,   r:0,   g:100, b:255, a:180},
+  {v:12,  r:0,   g:0,   b:200, a:200},
+  {v:25,  r:120, g:0,   b:200, a:215},
+  {v:50,  r:220, g:0,   b:220, a:230},
+];
+
+
+
+
+// ══════════════════════════════════════════════════════════════════════════
+//  ISOLINES (disabled)
+// ══════════════════════════════════════════════════════════════════════════
+function toggleIsolines(){
+  return;
+}
+
+
+</script>
+<script src="js/app.js"></script>
+</body>
+</html>
