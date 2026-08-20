@@ -2,5 +2,10 @@
 .DS_Store
 .Rhistory
 
+# Stray forecast data chunks in the repo ROOT (from an old build_web/git_push
+# deploy). Data lives under data/<dataset>/ — root-level copies are removed
+# from disk and from git, and should not be re-added.
+/forecast_*.json
+
 # Old deploy log (legacy)
 .git_push.log
