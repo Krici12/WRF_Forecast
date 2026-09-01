@@ -6,7 +6,7 @@
 <title>WRF Forecast Viewer</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<link rel="stylesheet" href="css/style.css?v=2"/>
+<link rel="stylesheet" href="css/style.css?v=5"/>
 </head>
 <body>
 
@@ -93,8 +93,8 @@
 <script src="js/data.js"></script>
 <script src="js/datasets.js"></script>
 <script src="js/layers.js"></script>
-<script src="js/boundaries.js?v=2"></script>
-<script src="js/map.js"></script>
+<script src="js/boundaries.js?v=3"></script>
+<script src="js/map.js?v=7"></script>
 <script src="js/controls.js"></script>
 <script src="js/tooltip.js"></script>
 <script>
@@ -120,17 +120,17 @@ const SPEEDS     = [1, 2, 5, 10];
 //  COLORMAPS
 // ══════════════════════════════════════════════════════════════════════════
 const TEMP_STOPS = [
-  {v:-30, r:10,  g:0,   b:130, a:180},
-  {v:-20, r:0,   g:0,   b:220, a:190},
-  {v:-10, r:0,   g:150, b:255, a:190},
-  {v:0,   r:0,   g:255, b:200, a:180},
-  {v:5,   r:0,   g:220, b:0,   a:180},
-  {v:10,  r:140, g:255, b:0,   a:180},
-  {v:15,  r:255, g:255, b:0,   a:180},
-  {v:20,  r:255, g:180, b:0,   a:190},
-  {v:25,  r:255, g:100, b:0,   a:190},
-  {v:30,  r:255, g:0,   b:0,   a:200},
-  {v:38,  r:140, g:0,   b:0,   a:210},
+  {v:-30, r:10,  g:0,   b:130, a:255},
+  {v:-20, r:0,   g:0,   b:220, a:255},
+  {v:-10, r:0,   g:150, b:255, a:255},
+  {v:0,   r:0,   g:255, b:200, a:255},
+  {v:5,   r:0,   g:220, b:0,   a:255},
+  {v:10,  r:140, g:255, b:0,   a:255},
+  {v:15,  r:255, g:255, b:0,   a:255},
+  {v:20,  r:255, g:180, b:0,   a:255},
+  {v:25,  r:255, g:100, b:0,   a:255},
+  {v:30,  r:255, g:0,   b:0,   a:255},
+  {v:38,  r:140, g:0,   b:0,   a:255},
 ];
 const PREC_STOPS = [
   {v:0,   r:0,   g:0,   b:0,   a:0},

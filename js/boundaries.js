@@ -21,6 +21,11 @@ function ensureBoundaryPane(map) {
 // Načte a vykreslí obě hranice (ČR + povodí Ohře). Hranice jsou jen čáry
 // (outline) — žádné výplně. Povodí Ohře je zvýrazněno tučněji, protože leží
 // uvnitř ČR a obě čáry by jinak splývaly.
+// Přepínač zobrazení povodí Ohře (2026-08-28): vypnuto na přání uživatele —
+// vrstva se jen nezobrazuje, kód i data (boundaries/ohre.geojson) zůstávají.
+// Pro obnovení stačí přepnout na true.
+const SHOW_OHRE_BASIN = false;
+
 function initBoundaryLayers() {
   if (typeof map === 'undefined' || !map) return; // mapa ještě není hotová
 
@@ -33,8 +38,8 @@ function initBoundaryLayers() {
 
   const jobs = [
     { id: 'czechia', url: 'boundaries/czechia.geojson' },
-    { id: 'ohre',    url: 'boundaries/ohre.geojson' },
-  ];
+    { id: 'ohre',    url: 'boundaries/ohre.geojson', enabled: SHOW_OHRE_BASIN },
+  ].filter(job => job.enabled !== false);
 
   for (const job of jobs) {
     fetch(job.url, { cache: 'no-cache' })

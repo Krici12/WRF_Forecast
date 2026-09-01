@@ -40,9 +40,14 @@ function initApp(){
   sl.value=0;
   buildTicks();
 
-  map=L.map('map',{center:[50.0,15.0],zoom:6,zoomControl:false});
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-    attribution:'© OpenStreetMap © CARTO',subdomains:'abcd',maxZoom:19
+  map=L.map('map',{center:[49.8,14.5],zoom:7,zoomControl:false});
+
+  // --- Samotný podklad: jeden, jednoduchý, bez filtru -------------------------
+  // Esri "World Light Gray Canvas" — neutrální šedo-bílý podklad, který záměrně
+  // nekrade barvy teplotní vizualizace. Zdarma, bez API klíče, bez registrace.
+  // (Carto Positron vyžadoval placený klíč; barevný OSM standard kazil grading.)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+    attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics'
   }).addTo(map);
   L.control.zoom({position:'bottomright'}).addTo(map);
 
@@ -55,7 +60,7 @@ function initApp(){
   offCanvas.height=dims.ny;
 
   const bounds=getGridBounds();
-  imgOv=L.imageOverlay('',bounds,{opacity:0.75,interactive:false});
+  imgOv=L.imageOverlay('',bounds,{opacity:0.65,interactive:false});
   imgOv.addTo(map);
 
   isoSvg=L.svg({pane:'overlayPane'}).addTo(map);

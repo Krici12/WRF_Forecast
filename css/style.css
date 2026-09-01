@@ -59,6 +59,9 @@
   #map { position: fixed; inset: 0; z-index: 1; }
   .leaflet-container { background: #e8eef5 !important; }
 
+  /* Odsazení zoom ovladače (vpravo dole), aby nekolidoval s legendou */
+  .leaflet-top.leaflet-right { margin-top: 14px; margin-right: 14px; }
+
   #topbar {
     position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
     z-index: 1000; background: var(--panel); backdrop-filter: blur(12px);
